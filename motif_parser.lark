@@ -1,0 +1,26 @@
+
+motif : element ("," element)*
+element: full_chord | broken_chord
+
+full_chord : grid "[" int_list  [octave] "]" "-" duration
+broken_chord : grid "<" bk_element ("," bk_element)* [octave] ">"
+bk_element : "[" int_list "]" "-" duration
+
+grid : key grid_form
+key_letter : "A".."G"
+key_symbol : /b|#/
+key : key_letter [key_symbol]
+grid_form : /maj[7|9]?|m[7|9]?|sus[2|4]/
+
+int_list : int (" " int)*
+octave : "::" uint
+duration : "(" (rational | uint) ")"
+rational : uint "/" uint 
+
+uint : INT
+int : SIGNED_INT
+
+%import common.INT 
+%import common.SIGNED_INT 
+%import common.WS
+%ignore WS
