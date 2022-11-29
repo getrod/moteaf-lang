@@ -91,11 +91,3 @@ class TreeToJson(Transformer):
 def motif_compile(motif_string: str):
     tree = motif_parser.parse(motif_string)
     return TreeToJson().transform(tree)
-
-test ="""Am9[0 1 2 3 4 :: 3]-(3/2),
-Bm7[3 4 5 6 :: 3]-(3/2), 
-Cmaj9[0 1 2 3 4 :: 5]-(2), 
-Em7<[3 5]-(3/4), [6]-(1/4), [7 9]-(1/4), [8]-(1/4), [6]-(1/4) :: 4>, 
-F#m7<[3]-(1/4), [2]-(1/4), [3]-(1/4), [4]-(1/4), [1]-(1/4)>"""
-
-print(motif_compile(test))
