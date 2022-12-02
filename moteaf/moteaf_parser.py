@@ -1,8 +1,11 @@
 from lark import Lark
 from lark import Transformer
+import os
 
-f = open('motif_parser.lark')
+filename = os.path.join(os.path.dirname(__file__), 'moteaf.lark')
+f = open(filename)
 motif_parser = Lark(f.read(), start='motif')
+f.close()
 
 class TreeToJson(Transformer):
     def motif(self, mtf):
@@ -88,6 +91,6 @@ class TreeToJson(Transformer):
         return nums[0] / nums[1]
 
 
-def motif_compile(motif_string: str):
+def motif_parse(motif_string: str):
     tree = motif_parser.parse(motif_string)
     return TreeToJson().transform(tree)

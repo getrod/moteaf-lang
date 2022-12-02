@@ -1,0 +1,1 @@
+from .moteaf_parser import motif_parse
