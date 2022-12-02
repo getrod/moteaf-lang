@@ -103,9 +103,9 @@ def create_midi_track_mido(midi: list[Midi], filename: str):
     mid.save(filename)
 
 
-def motif_2_midi(motif: str, filename: str):
-    # get parsed chords
-    motif_tree = motif_parse(motif)
+def motif_2_midi(motif_tree: dict):
+    ''' Takes a motif tree and returns the midi
+    '''
     chords = motif_tree["motif"]
 
     # convert chords to midi
@@ -121,4 +121,8 @@ def motif_2_midi(motif: str, filename: str):
             midi += _midi
             total_beat = end_beat
     
+    return midi
+
+def save_midi(midi: list[Midi], filename: str):
     create_midi_track_mido(midi, filename)
+    

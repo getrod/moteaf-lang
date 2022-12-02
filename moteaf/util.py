@@ -48,6 +48,27 @@ def get_key_number(key_letter: str, key_symbol: str = None):
     key_num = key_num % 12
     return key_num
 
+def get_key_name(key_num: int):
+    ''' Returns both the key letter and key symbol '''
+    _key_num = key_num % 12
+    k_letter = ''
+    k_symbol = None
+    for i in range(len(key_letter_nums)):
+        kn = key_letter_nums[i]
+        if _key_num == kn:
+            k_letter = key_letters[i]
+            return k_letter, None
+
+    # check in between the numbers
+    for i in range(len(key_letter_nums)):
+        kn_len = len(key_letter_nums)
+        if _key_num > key_letter_nums[i % kn_len] and _key_num < key_letter_nums[(i + 1) % kn_len]:
+            k_letter = key_letters[i]
+            k_symbol = '#'
+            return k_letter, k_symbol
+    
+    raise Exception(f'"get_key_name()" made an error with key: {key_num}')
+
 def _test_get_key_number(): 
     print(get_key_number('C'))
     print(get_key_number('G'))
@@ -100,3 +121,24 @@ class Midi:
 
     def __str__(self) -> str:
         return f'event: {self.event}, note: {self.note}, velocity: {self.velocity}, beat: {self.beat}'
+
+class ParsedChord:
+    def __init__(self, chord) -> None:
+        self.chord = chord
+
+    def get_key_number(self):
+        k_letter = self.chord["grid"]["key"]["key_letter"]
+        k_symbol = self.chord["grid"]["key"]["key_symbol"]
+        k_num = get_key_number(k_letter, k_symbol)
+        return k_num
+
+    def set_key(self, key_num: int):
+        k_letter, k_symbol = get_key_name(key_num)
+        self.chord["grid"]["key"]["key_letter"] = k_letter
+        self.chord["grid"]["key"]["key_symbol"] = k_symbol
+
+    def get_octave(self):
+        return self.chord["octave"]
+
+    def set_octave(self, octave: int):
+        self.chord["octave"] = octave
