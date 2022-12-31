@@ -10,7 +10,7 @@ grid : key grid_form
 key_letter : "A".."G"
 key_symbol : /b|#/
 key : key_letter [key_symbol]
-grid_form : /maj[7|9]?|m[7|9]?|sus[2|4]/
+grid_form : /maj[7|9]?|m[7|9]?|sus[2|4]|chrom/
 
 int_list : int (" " int)*
 octave : "::" uint
